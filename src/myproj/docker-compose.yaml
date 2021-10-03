@@ -1,0 +1,30 @@
+version: '3.1'
+
+services:
+
+  db:
+    container_name: db
+    image: postgres:11.1-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_USER: smalldoc
+    ports:
+      - 5432:5432
+    volumes:
+      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+
+  adminer:
+    container_name: admin_db
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  # application:
+  #   container_name: demoapi
+  #   image: demo-api:latest
+  #   depends_on:
+  #     - db
+  #   ports:
+  #     - 3000:3000
